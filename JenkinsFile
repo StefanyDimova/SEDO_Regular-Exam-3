@@ -2,17 +2,11 @@ pipeline {
     agent any
 
     stages {
-		stage('Checkout Fork') {
-            steps {
-                checkout([
-                    $class: 'GitSCM',
-                    branches: [[name: 'main']],
-                    userRemoteConfigs: [[
-                        url: 'https://github.com/StefanyDimova/SEDO_Regular-Exam-3.git'
-                    ]]
-                ])
-            }
-        }	
+		stage ('Checkout the Horizons app') {
+			steps {
+				checkout scm
+			}
+		}	
 		stage('Restore the application') {
             steps {
                 bat 'dotnet restore'
