@@ -1,0 +1,26 @@
+pipeline {
+    agent any
+
+    stages {
+		stage ('Checkout the Horizons app') {
+			steps {
+				checkout scm
+			}
+		}	
+		stage('Restore the application') {
+            steps {
+                bat 'dotnet restore'
+            }
+        }
+        stage('Build the Horizons application') {
+            steps {
+                bat 'dotnet build --no-restore'
+            }
+        }
+        stage('Test unit and integration tests') {
+            steps {
+                bat 'dotnet test --no-build --verbosity normal'
+            }
+        }
+    }
+}
